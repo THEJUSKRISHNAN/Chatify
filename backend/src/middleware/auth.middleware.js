@@ -1,6 +1,6 @@
 // creation of middleware in express 
 import jwt from "jsonwebtoken";
-import User from "../models/user.model";
+import User from "../models/user.model.js";
 
 export const protectRoute = async(req,res,next) => {
 
@@ -11,7 +11,7 @@ export const protectRoute = async(req,res,next) => {
             return res.status(401).json({message: "Unauthorized - No token provided "});
         }
 
-        const decoded = jwt.verify(token,process.eventNames.JWT_SECRET);
+        const decoded = jwt.verify(token,process.env.JWT_SECRET);
         
         if(!decoded) {
             return res.status(404).json({message: "Unauthorized - Invalid token"});
